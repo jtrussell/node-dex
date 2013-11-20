@@ -1,0 +1,25 @@
+{
+  "name": "node-dex",
+  "version": "0.0.0",
+  "description": "A command line tool for managing passwords built on nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jtrussell/node-dex.git"
+  },
+  "author": "jtrussell",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jtrussell/node-dex/issues"
+  },
+  "dependencies": {
+    "commander": "~2.0.0",
+    "blessed": "0.0.25"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1"
+  }
+}
