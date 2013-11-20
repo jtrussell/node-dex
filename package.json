@@ -1,7 +1,7 @@
 {
   "name": "node-dex",
   "version": "0.0.0",
-  "description": "A command line tool for managing passwords built on nodejs",
+  "description": "A command line tool for managing passwords built on Node.js",
   "main": "index.js",
   "scripts": {
     "test": "grunt test"
