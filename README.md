@@ -1,7 +1,11 @@
 node-dex
 ========
 
-A command line tool for managing passwords built on Node.js
+> A command line tool for managing passwords built on Node.js
+
+**HEYO**
+
+This is a work in progress, it should not yet be used with any sensitive info. Some day Dex will happily store your passwords for you... but that day has not yet come.
 
 # Usage
 
