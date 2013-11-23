@@ -2,7 +2,7 @@
   "name": "node-dex",
   "version": "0.0.0",
   "description": "A command line tool for managing passwords built on Node.js",
-  "main": "index.js",
+  "main": "lib/dex.js",
   "scripts": {
     "test": "grunt test"
   },
@@ -20,6 +20,6 @@
     "blessed": "0.0.25"
   },
   "devDependencies": {
-    "grunt": "~0.4.1"
+    "grunt": "~0.4.2"
   }
 }
