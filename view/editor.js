@@ -1,9 +1,13 @@
+'use strict';
+
 var blessed = require('blessed')
-  , screen = blessed.screen();
+  , screen = blessed.screen({term: 'windows-ansi'});
 
 var navWidth = 40
-  , helpHeight = 5
-  , breadcrumpbsHeight = helpHeight
+  , helpHeight = 3
+  , breadcrumbsHeight = helpHeight
+  , selectedFg = 'black'
+  , selectedBg = 'white'
   , style = {
       fg: 'white',
       bg: 'black',
@@ -24,24 +28,28 @@ var panel = blessed.box({
   style: style
 });
 
-var navList = blessed.box({
+var navList = blessed.list({
   top: 0,
   left: 0,
   width: navWidth,
   height: screen.height,
+  selectedFg: selectedFg,
+  selectedBg: selectedBg,
+  itemFg: style.fg,
+  itemBg: style.bg,
   border: {
     type: 'line'
   },
   style: style
 });
 
-var breadcrumpbs = blessed.box({
-  content: 'foo > bar > blargus',
-  align: 'left',
+var breadcrumbs = blessed.text({
+  content: 'foo > bar > blargus {right}Title{/right}',
+  tags: true,
   top: 0,
   right: 0,
   width: screen.width - navWidth,
-  height: breadcrumpbsHeight,
+  height: breadcrumbsHeight,
   border: {
     type: 'line'
   },
@@ -51,20 +59,22 @@ var breadcrumpbs = blessed.box({
 var contentDetails = blessed.box({
   content: 'my stuff',
   align: 'left',
-  top: breadcrumpbsHeight,
+  top: breadcrumbsHeight,
   right: 0,
   width: screen.width - navWidth,
-  height: screen.height - (breadcrumpbsHeight + helpHeight),
+  height: screen.height - (breadcrumbsHeight + helpHeight),
   border: {
     type: 'line'
   },
   style: style
 });
 
-var helpBar = blessed.box({
-  content: '?: Show Help',
+var helpBar = blessed.text({
+  content: [
+    '<Esc>: Quit',
+    '?: Show Help'
+  ].join('   '),
   align: 'right',
-  valign: 'bottom',
   bottom: 0,
   right: 0,
   width: screen.width - navWidth,
@@ -75,10 +85,13 @@ var helpBar = blessed.box({
   style: style
 });
 
-//screen.append(panel);
 screen.append(navList);
-screen.append(breadcrumpbs);
+screen.append(breadcrumbs);
 screen.append(contentDetails);
 screen.append(helpBar);
+
+screen.key(['escape', 'q'], function(ch, key) {
+  return process.exit(0);
+});
 
 screen.render();
