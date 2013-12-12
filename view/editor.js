@@ -1,7 +1,14 @@
 'use strict';
 
-var blessed = require('blessed')
-  , screen = blessed.screen({term: 'windows-ansi'});
+var blessed = require('blessed');
+
+var screen = /^win/.test(process.platform) ?
+  blessed.screen({term: 'windows-ansi'}) :
+  blessed.screen();
+
+var items = [
+  'foo', 'bar', 'blargus'
+];
 
 var navWidth = 40
   , helpHeight = 3
@@ -31,12 +38,16 @@ var panel = blessed.box({
 var navList = blessed.list({
   top: 0,
   left: 0,
+  parent: screen,
+  keys: true,
+  vi: true,
   width: navWidth,
   height: screen.height,
   selectedFg: selectedFg,
   selectedBg: selectedBg,
   itemFg: style.fg,
   itemBg: style.bg,
+  items: items,
   border: {
     type: 'line'
   },
@@ -44,7 +55,7 @@ var navList = blessed.list({
 });
 
 var breadcrumbs = blessed.text({
-  content: 'foo > bar > blargus {right}Title{/right}',
+  content: '{right}foo > bar > blargus Title{/right}',
   tags: true,
   top: 0,
   right: 0,
@@ -72,6 +83,7 @@ var contentDetails = blessed.box({
 var helpBar = blessed.text({
   content: [
     '<Esc>: Quit',
+    '/: Search',
     '?: Show Help'
   ].join('   '),
   align: 'right',
@@ -90,8 +102,20 @@ screen.append(breadcrumbs);
 screen.append(contentDetails);
 screen.append(helpBar);
 
-screen.key(['escape', 'q'], function(ch, key) {
+screen.key(['q'], function(ch, key) {
   return process.exit(0);
 });
+
+navList.key(['o', 'enter'], function() {
+  contentDetails.setContent(items[navList.selected]);
+  contentDetails.focus();
+  screen.render();
+});
+
+contentDetails.key(['escape'], function() {
+  navList.focus();
+});
+
+navList.focus();
 
 screen.render();
