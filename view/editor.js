@@ -1,14 +1,34 @@
 'use strict';
 
-var blessed = require('blessed');
+var _ = require('lodash')
+  , blessed = require('blessed');
 
 var screen = /^win/.test(process.platform) ?
   blessed.screen({term: 'windows-ansi'}) :
   blessed.screen();
 
-var items = [
-  'foo', 'bar', 'blargus'
-];
+// -----------------------------------------------------
+// Dummy data
+var items = [{
+  label: 'New Document 1',
+  username: '',
+  password: '',
+  url: '',
+  notes: ''
+},{
+  label: 'New Document 2',
+  username: '',
+  password: '',
+  url: '',
+  notes: ''
+},{
+  label: 'New Document 3',
+  username: '',
+  password: '',
+  url: '',
+  notes: ''
+}];
+// -----------------------------------------------------
 
 var navWidth = 40
   , helpHeight = 3
@@ -47,7 +67,7 @@ var navList = blessed.list({
   selectedBg: selectedBg,
   itemFg: style.fg,
   itemBg: style.bg,
-  items: items,
+  items: _.pluck(items, 'label'),
   border: {
     type: 'line'
   },
@@ -67,17 +87,21 @@ var breadcrumbs = blessed.text({
   style: style
 });
 
-var contentDetails = blessed.box({
-  content: 'my stuff',
-  align: 'left',
+var contentDetails = blessed.form({
   top: breadcrumbsHeight,
   right: 0,
+  padding: 1,
   width: screen.width - navWidth,
   height: screen.height - (breadcrumbsHeight + helpHeight),
   border: {
     type: 'line'
   },
   style: style
+});
+
+var inputLabel = blessed.textarea({
+  parent: contentDetails,
+  inputOnFocus: true
 });
 
 var helpBar = blessed.text({
@@ -97,6 +121,9 @@ var helpBar = blessed.text({
   style: style
 });
 
+// Don't need this?
+//contentDetails.append(inputLabel);
+
 screen.append(navList);
 screen.append(breadcrumbs);
 screen.append(contentDetails);
@@ -107,7 +134,9 @@ screen.key(['q'], function(ch, key) {
 });
 
 navList.key(['o', 'enter'], function() {
-  contentDetails.setContent(items[navList.selected]);
+  contentDetails.setContent();
+  var selectedItem = items[navList.selected];
+  inputLabel.setValue(selectedItem.label);
   contentDetails.focus();
   screen.render();
 });
