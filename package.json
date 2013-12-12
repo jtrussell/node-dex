@@ -17,7 +17,8 @@
   },
   "dependencies": {
     "commander": "~2.0.0",
-    "blessed": "0.0.25"
+    "blessed": "0.0.25",
+    "lodash": "~2.4.1"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
