@@ -106,7 +106,7 @@ var inputLabel = blessed.textarea({
 
 var helpBar = blessed.text({
   content: [
-    '<Esc>: Quit',
+    'q: Quit',
     '/: Search',
     '?: Show Help'
   ].join('   '),
@@ -141,7 +141,7 @@ navList.key(['o', 'enter'], function() {
   screen.render();
 });
 
-contentDetails.key(['escape'], function() {
+contentDetails.key(['C-c'], function() {
   navList.focus();
 });
 
