@@ -3,8 +3,7 @@
 var blessed = require('blessed');
 
 module.exports = function(screen, opts) {
-  var style = opts.style
-    , layout = opts.layout;
+  var layout = opts.layout;
 
   var contentDetails = blessed.form({
     top: layout.breadcrumbsHeight,
@@ -12,7 +11,8 @@ module.exports = function(screen, opts) {
     padding: 1,
     width: screen.width - layout.navWidth,
     height: screen.height - (layout.breadcrumbsHeight + layout.helpHeight),
-    style: style
+    style: opts.style,
+    border: opts.border
   });
 
   var inputLabel = blessed.textarea({

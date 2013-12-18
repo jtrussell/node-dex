@@ -3,8 +3,7 @@
 var blessed = require('blessed');
 
 module.exports = function(screen, opts) {
-  var style = opts.style
-    , layout = opts.layout;
+  var layout = opts.layout;
 
   return blessed.box({
     content: [
@@ -17,9 +16,7 @@ module.exports = function(screen, opts) {
     right: 0,
     width: screen.width - layout.navWidth,
     height: layout.helpHeight,
-    border: {
-      type: 'line'
-    },
-    style: style
+    style: opts.style,
+    border: opts.border
   });
 };

@@ -18,6 +18,7 @@ module.exports = function(screen, opts) {
     selectedBg: style.fg,
     itemFg: style.fg,
     itemBg: style.bg,
-    style: opts.style
+    style: style,
+    border: opts.border
   });
 };

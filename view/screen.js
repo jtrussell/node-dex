@@ -23,7 +23,8 @@ var layout = {
 
 var opts = {
   style: style,
-  layout: layout
+  layout: layout,
+  border: {type: 'line'}
 };
 
 // -----------------------------------------------------
