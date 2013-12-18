@@ -106,7 +106,7 @@ var inputLabel = blessed.textarea({
 
 var helpBar = blessed.text({
   content: [
-    'q: Quit',
+    '<Esc>: Quit',
     '/: Search',
     '?: Show Help'
   ].join('   '),
@@ -129,22 +129,24 @@ screen.append(breadcrumbs);
 screen.append(contentDetails);
 screen.append(helpBar);
 
-screen.key(['q'], function(ch, key) {
+screen.key(['escape'], function(ch, key) {
   return process.exit(0);
+});
+
+screen.key(['C-c'], function(ch, key) {
+  if(screen.focused !== navList) {
+    var focusEl = screen.focusPop();
+  }
 });
 
 navList.key(['o', 'enter'], function() {
   contentDetails.setContent();
   var selectedItem = items[navList.selected];
   inputLabel.setValue(selectedItem.label);
-  contentDetails.focus();
+  screen.focusPush(contentDetails);
   screen.render();
 });
 
-contentDetails.key(['C-c'], function() {
-  navList.focus();
-});
-
-navList.focus();
+screen.focusPush(navList);
 
 screen.render();
