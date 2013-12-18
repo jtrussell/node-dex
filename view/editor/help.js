@@ -2,10 +2,19 @@
 
 var blessed = require('blessed');
 
-module.exports = function(screen, opts) {
+/**
+ * Factory for help bar widgets
+ *
+ * @param {Blessed.Screen} screen The top level blessed screen
+ * @param {Blessed.Element} parent Parent container
+ * @param {Object} opts Style and layout options
+ * @return {Blessed.Text}
+ */
+module.exports = function(screen, parent, opts) {
   var layout = opts.layout;
 
   return blessed.box({
+    parent: parent,
     content: [
       '<Esc>: Quit',
       '/: Search',
