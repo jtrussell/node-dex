@@ -16,9 +16,10 @@
     "url": "https://github.com/jtrussell/node-dex/issues"
   },
   "dependencies": {
+    "bluebird": "^2.9.6",
     "commander": "~2.0.0",
-    "blessed": "0.0.25",
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "read": "^1.0.5"
   },
   "devDependencies": {
     "grunt": "~0.4.2",

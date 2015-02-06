@@ -14,7 +14,8 @@ This is a work in progress, it should not yet be used with any sensitive info. S
 dex <dex-file>
 ```
 
-This will start the dex repl. Follow the prompts from there :).
+You will be prompted for your password to unlock the file, then the dex repl wil
+start. Follow the prompts from there :).
 
 ## License
 
